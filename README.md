@@ -127,3 +127,44 @@ npx webpack serve
 # ブラウザで https://localhost:8088/ にアクセスしてみる
 # シンプルなログイン画面が表示されたら成功。
 ```
+
+# 開発用ローカルサーバーのホットリロードが効いているか確認する。
+
+src/app.tsx のソースコードを適当にいじってみる。<br />
+例えば、
+```
+export const generateHelloWorld = () => {
+  return "hello world.";
+};
+```
+↓
+```
+export const generateHelloWorld = () => {
+  return "hello world.sssssssssssss";
+};
+```
+何もしなくても、http://localhost:8088/ を表示中のブラウザが勝手にリロードされて更新されたら成功。<br />
+これで、いちいち再コンパイルしなくても状況を確認しながら開発ができる。<br />
+
+# テストツール jest でテストコード(\*.test.ts\*)を実行してみる。
+
+```
+npm run test
+```
+無事通ればOK.
+```
+ PASS  src/index.test.ts
+  ✓ generateHelloWorldがHelloWorldを返す (1 ms)
+
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+----------|---------|----------|---------|---------|-------------------
+All files |   52.63 |      100 |      50 |   52.63 |
+ app.tsx  |   52.63 |      100 |      50 |   52.63 | 11-19
+----------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.256 s
+Ran all test suites.
+```
